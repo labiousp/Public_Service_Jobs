@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Public Service Vacancies | Circular 38 of 2026</title>
+    <title>Public Service Vacancies | PSV Circular 38 of 2026</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -13,453 +13,447 @@
             width: 6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #f1f5f9;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background: #cbd5e1;
             border-radius: 3px;
         }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+        .province-pill.active {
+            background-color: #e6f4f1;
+            border-color: #0d5c46;
+            color: #0b4535;
+            font-weight: 600;
         }
-        @keyframes pulse-fast {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-        .animate-pulse-fast {
-            animation: pulse-fast 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        .province-pill.active svg {
+            color: #0d5c46;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans antialiased">
+<body class="bg-[#f4f7f6] text-slate-800 min-h-screen flex flex-col font-sans antialiased">
 
-    <!-- Top Navigation Header -->
-    <header class="bg-emerald-900 text-white shadow-lg sticky top-0 z-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <i data-lucide="building-2" class="w-8 h-8 text-emerald-400"></i>
-                <div>
-                    <h1 class="text-lg sm:text-xl font-bold tracking-tight leading-tight">Public Service Vacancies</h1>
-                    <p class="text-xs text-emerald-200">PSV Circular No. 38 of 2026</p>
+    <!-- Top Navigation Bar -->
+    <header class="bg-[#083a2d] text-white sticky top-0 z-40 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            
+            <!-- Brand / Logo (Functions as Home button to reset site) -->
+            <a href="#" id="brand-home-btn" class="flex items-center gap-3 group focus:outline-none">
+                <div class="p-1.5 bg-[#0d5c46] rounded-lg group-hover:bg-[#117358] transition">
+                    <i data-lucide="building-2" class="w-6 h-6 text-emerald-300"></i>
                 </div>
-            </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold tracking-tight leading-none group-hover:text-emerald-200 transition">Public Service Vacancies</h1>
+                    <p class="text-[11px] text-emerald-300/80 mt-0.5">PSV Circular 38 of 2026</p>
+                </div>
+            </a>
 
-            <!-- Top Header Actions -->
-            <div class="flex items-center gap-3">
-                <!-- Bookmarks Counter Button -->
-                <button id="view-bookmarks-btn" class="flex items-center gap-2 bg-emerald-800/80 hover:bg-emerald-700 px-3 py-1.5 rounded-lg border border-emerald-700 text-xs sm:text-sm font-medium transition shadow-sm">
+            <!-- Navigation Links -->
+            <nav class="flex items-center gap-1 sm:gap-4">
+                <button id="nav-browse-btn" class="px-3 py-1.5 text-xs sm:text-sm font-semibold border-b-2 border-emerald-400 text-white flex items-center gap-1.5 transition">
+                    Browse jobs
+                </button>
+                <button id="nav-closing-soon-btn" class="px-3 py-1.5 text-xs sm:text-sm font-medium text-emerald-100 hover:text-white flex items-center gap-1.5 transition">
+                    <i data-lucide="clock" class="w-4 h-4 text-emerald-300"></i>
+                    <span class="hidden sm:inline">Closing soon</span>
+                </button>
+                <button id="nav-saved-btn" class="ml-2 px-3 py-1.5 bg-[#0d5c46] hover:bg-[#117358] text-white rounded-full text-xs sm:text-sm font-medium border border-emerald-600/50 flex items-center gap-2 transition">
                     <i data-lucide="bookmark" class="w-4 h-4 text-emerald-300"></i>
-                    <span class="hidden sm:inline">Saved Jobs</span>
-                    <span id="bookmark-badge" class="bg-emerald-400 text-emerald-950 font-bold text-xs px-2 py-0.5 rounded-full">0</span>
+                    <span>Saved jobs</span>
+                    <span id="saved-count-badge" class="bg-emerald-300 text-[#083a2d] font-bold text-[11px] px-1.5 py-0.2 rounded-full">0</span>
                 </button>
-
-                <!-- Mobile Filter Toggle Button -->
-                <button id="mobile-filter-toggle" class="lg:hidden p-2 text-emerald-200 hover:text-white hover:bg-emerald-800 rounded-lg transition">
-                    <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
-                </button>
-            </div>
+            </nav>
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
-        
-        <!-- Tab view indicator for saved jobs -->
-        <div id="saved-view-banner" class="hidden bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 flex items-center justify-between">
-            <div class="flex items-center gap-3 text-amber-900">
-                <i data-lucide="bookmark-check" class="w-6 h-6 text-amber-600"></i>
-                <div>
-                    <h3 class="font-bold text-sm">Viewing Saved Bookmarks</h3>
-                    <p class="text-xs text-amber-700">Showing posts you have locally saved to your browser.</p>
-                </div>
-            </div>
-            <button id="clear-bookmark-view" class="px-3 py-1.5 bg-amber-200/60 hover:bg-amber-200 text-amber-900 text-xs font-semibold rounded-lg transition">
-                Show All Vacancies
-            </button>
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full space-y-8">
+
+        <!-- Hero Section -->
+        <div class="space-y-1">
+            <div class="w-8 h-1 bg-[#0d5c46] rounded-full mb-3"></div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#083a2d] tracking-tight">Find your next public service opportunity</h2>
+            <p class="text-sm text-slate-500 font-normal">Browse verified vacancies across South Africa.</p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- PRIMARY FOCUS: Location / Province Selector Card -->
+        <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-5">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-[#e6f4f1] rounded-lg text-[#0d5c46]">
+                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 text-base">Find vacancies by province</h3>
+                    <p class="text-xs text-slate-500">Select your province to see available jobs</p>
+                </div>
+            </div>
+
+            <!-- Province Pills Grid -->
+            <div id="province-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5">
+                <button data-province="Eastern Cape" class="province-pill flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100/80 text-slate-700 text-xs font-medium transition text-left">
+                    <i data-lucide="map" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>
+                    <span class="truncate">Eastern Cape</span>
+                </button>
+                <button data-province="Free State" class="province-pill flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100/80 text-slate-700 text-xs font-medium transition text-left">
+                    <i data-lucide="map" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>
+                    <span class="truncate">Free State</span>
+                </button>
+                <button data-province="Gauteng" class="province-pill flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100/80 text-slate-700 text-xs font-medium transition text-left">
+                    <i data-lucide="map" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>
+                    <span class="truncate">Gauteng</span>
+                </button>
+                <button data-province="KwaZulu-Natal" class="province-pill flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100/80 text-slate-700 text-xs font-medium transition text-left">
+                    <i data-lucide="map" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>
+                    <span class="truncate">KwaZulu-Natal</span>
+                </button>
+                <button data-province="Limpopo" class="province-pill flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100/80 text-slate-700 text-xs font-medium transition text-left">
+                    <i data-lucide="map" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>
+                    <span class="truncate">Limpopo</span>
+                </button>
+                <button data-province="Mpumalanga" class="province-pill flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100/80 text-slate-700 text-xs font-medium transition text-left">
+                    <i data-lucide="map" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>
+                    <span class="truncate">Mpumalanga</span>
+                </button>
+                <button data-province="Northern Cape" class="province-pill flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100/80 text-slate-700 text-xs font-medium transition text-left">
+                    <i data-lucide="map" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>
+                    <span class="truncate">Northern Cape</span>
+                </button>
+                <button data-province="North West" class="province-pill flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100/80 text-slate-700 text-xs font-medium transition text-left">
+                    <i data-lucide="map" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>
+                    <span class="truncate">North West</span>
+                </button>
+                <button data-province="Western Cape" class="province-pill flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100/80 text-slate-700 text-xs font-medium transition text-left">
+                    <i data-lucide="map" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>
+                    <span class="truncate">Western Cape</span>
+                </button>
+                <button data-province="ALL" class="province-pill active flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100/80 text-slate-700 text-xs font-medium transition text-left">
+                    <i data-lucide="globe" class="w-4 h-4 text-slate-400 flex-shrink-0"></i>
+                    <span class="truncate">National / All provinces</span>
+                </button>
+            </div>
+
+            <!-- Global Search Box -->
+            <div class="pt-2 flex flex-col sm:flex-row gap-2">
+                <div class="relative flex-grow">
+                    <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute left-3.5 top-3"></i>
+                    <input type="text" id="keyword-search" placeholder="Job title, department or reference number..." 
+                        class="w-full pl-11 pr-4 py-2.5 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0d5c46] focus:bg-white transition">
+                </div>
+                <button id="search-submit-btn" class="px-6 py-2.5 bg-[#083a2d] hover:bg-[#0d5c46] text-white text-sm font-semibold rounded-xl transition flex items-center justify-center gap-2">
+                    <i data-lucide="search" class="w-4 h-4"></i> Search
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Workspace (Sidebar Filters + Results) -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
             
-            <!-- Filters Sidebar Drawer -->
-            <aside id="sidebar-drawer" class="fixed inset-y-0 left-0 z-40 w-80 bg-white shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out lg:static lg:z-auto lg:w-auto lg:bg-transparent lg:shadow-none lg:translate-x-0 lg:col-span-1">
-                <div class="h-full lg:h-auto overflow-y-auto p-5 lg:p-0 space-y-5">
-                    
-                    <!-- Mobile Close Header -->
-                    <div class="flex items-center justify-between lg:hidden border-b pb-3">
-                        <h2 class="font-bold text-slate-800 flex items-center gap-2">
-                            <i data-lucide="filter" class="w-4 h-4 text-emerald-600"></i> Search Filters
-                        </h2>
-                        <button id="mobile-filter-close" class="p-1 text-slate-400 hover:text-slate-600 rounded-lg">
-                            <i data-lucide="x" class="w-5 h-5"></i>
-                        </button>
-                    </div>
+            <!-- Left Sidebar Filters -->
+            <aside class="lg:col-span-1 bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-5">
+                <div class="flex items-center justify-between border-b pb-3">
+                    <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                        <i data-lucide="sliders-horizontal" class="w-4 h-4 text-[#0d5c46]"></i> Filters
+                    </h3>
+                    <button id="reset-all-filters-btn" class="text-xs font-semibold text-[#0d5c46] hover:underline">
+                        Reset all
+                    </button>
+                </div>
 
-                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-5">
-                        <div class="hidden lg:flex items-center justify-between border-b pb-3">
-                            <h2 class="font-bold text-slate-700 flex items-center gap-2 text-sm uppercase tracking-wider">
-                                <i data-lucide="filter" class="w-4 h-4 text-emerald-600"></i> Filters
-                            </h2>
-                            <button id="reset-filters" class="text-xs font-semibold text-emerald-600 hover:text-emerald-800 flex items-center gap-1 transition">
-                                <i data-lucide="rotate-ccw" class="w-3 h-3"></i> Reset All
-                            </button>
-                        </div>
+                <!-- Salary Grade Filter -->
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-semibold text-slate-600 flex items-center gap-1.5">
+                        <i data-lucide="coins" class="w-3.5 h-3.5 text-slate-400"></i> Salary grade
+                    </label>
+                    <select id="salary-grade-select" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0d5c46]">
+                        <option value="">All salary grades</option>
+                        <option value="entry">Level 1 - Level 5 (Entry)</option>
+                        <option value="supervisory">Level 6 - Level 8 (Supervisory)</option>
+                        <option value="management">Level 9 - Level 12 (Management)</option>
+                        <option value="sms">Level 13+ (SMS / Executive)</option>
+                    </select>
+                </div>
 
-                        <!-- Keyword Search -->
-                        <div>
-                            <label for="search-input" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Search Keywords</label>
-                            <div class="relative">
-                                <input type="text" id="search-input" placeholder="Title, ref no, duties..." 
-                                    class="w-full pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
-                                <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-                            </div>
-                        </div>
+                <!-- Department Filter -->
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-semibold text-slate-600 flex items-center gap-1.5">
+                        <i data-lucide="landmark" class="w-3.5 h-3.5 text-slate-400"></i> Department
+                    </label>
+                    <select id="department-select" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0d5c46]">
+                        <option value="">All departments</option>
+                    </select>
+                </div>
 
-                        <!-- Salary Level Grade Filter -->
-                        <div>
-                            <label for="level-filter" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Salary Level / Grade</label>
-                            <select id="level-filter" class="w-full p-2 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                                <option value="">All Levels</option>
-                                <option value="entry">Entry Level (Level 1 - 5)</option>
-                                <option value="supervisory">Supervisory (Level 6 - 8)</option>
-                                <option value="management">Middle Management (Level 9 - 12)</option>
-                                <option value="sms">SMS / Executive (Level 13+)</option>
-                            </select>
-                        </div>
+                <!-- Closing Date Filter -->
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-semibold text-slate-600 flex items-center gap-1.5">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 text-slate-400"></i> Closing date
+                    </label>
+                    <select id="closing-date-select" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0d5c46]">
+                        <option value="">All closing dates</option>
+                        <option value="7days">Closing within 7 days</option>
+                        <option value="14days">Closing within 14 days</option>
+                    </select>
+                </div>
 
-                        <!-- Department Filter -->
-                        <div>
-                            <label for="dept-filter" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Department</label>
-                            <select id="dept-filter" class="w-full p-2 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                                <option value="">All Departments</option>
-                            </select>
-                        </div>
-
-                        <!-- Centre/Location Filter -->
-                        <div>
-                            <label for="location-filter" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Centre / Location</label>
-                            <select id="location-filter" class="w-full p-2 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                                <option value="">All Locations</option>
-                            </select>
-                        </div>
-
-                        <!-- Actions Area -->
-                        <div class="pt-3 border-t border-slate-100 space-y-2">
-                            <button id="export-json-btn" class="w-full py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition flex items-center justify-center gap-2">
-                                <i data-lucide="download" class="w-4 h-4 text-slate-500"></i> Export JSON Data
-                            </button>
-                        </div>
-                    </div>
+                <!-- Clear Filters Button -->
+                <div class="pt-2">
+                    <button id="clear-filters-btn" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition flex items-center justify-center gap-2">
+                        <i data-lucide="trash-2" class="w-3.5 h-3.5 text-slate-400"></i> Clear filters
+                    </button>
                 </div>
             </aside>
 
-            <!-- Main Listing Area -->
-            <section class="lg:col-span-3 space-y-5">
+            <!-- Results Section -->
+            <section class="lg:col-span-3 space-y-4">
                 
-                <!-- Sorting & Metadata Bar -->
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <div class="text-xs text-slate-500">
-                        Showing <span id="showing-range" class="font-bold text-slate-800">0-0</span> of <span id="total-count" class="font-bold text-slate-800">0</span> vacancies
-                    </div>
+                <!-- Results Counter & Sort Header -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <h3 class="text-xl font-bold text-slate-900 tracking-tight">
+                        <span id="results-count">0</span> vacancies
+                    </h3>
 
-                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
-                        <label for="sort-select" class="text-xs text-slate-500 font-medium whitespace-nowrap">Sort by:</label>
-                        <select id="sort-select" class="p-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                            <option value="closing_asc">Closing Date (Soonest)</option>
-                            <option value="title_asc">Title (A - Z)</option>
-                            <option value="salary_desc">Salary (High to Low)</option>
+                    <div class="flex items-center gap-2 text-xs text-slate-500">
+                        <span>Sort by:</span>
+                        <select id="sort-order-select" class="p-2 bg-white border border-slate-200 rounded-xl font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#0d5c46]">
+                            <option value="closing_soon">Closing date: soonest</option>
+                            <option value="title_az">Title: A to Z</option>
+                            <option value="salary_desc">Salary: High to Low</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- Active Filter Tags/Chips -->
-                <div id="active-tags" class="flex flex-wrap gap-2 hidden"></div>
-
-                <!-- Skeleton Loader Container -->
-                <div id="skeleton-container" class="space-y-4">
-                    <!-- 3 Placeholder Skeleton Cards -->
-                    <div class="bg-white p-6 rounded-xl border border-slate-200 space-y-4 animate-pulse-fast">
-                        <div class="flex justify-between items-center">
-                            <div class="h-4 bg-slate-200 rounded w-1/4"></div>
-                            <div class="h-4 bg-slate-200 rounded w-1/6"></div>
-                        </div>
-                        <div class="h-6 bg-slate-200 rounded w-2/3"></div>
-                        <div class="h-3 bg-slate-200 rounded w-1/3"></div>
-                        <div class="grid grid-cols-2 gap-4 pt-2">
-                            <div class="h-4 bg-slate-200 rounded"></div>
-                            <div class="h-4 bg-slate-200 rounded"></div>
-                        </div>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl border border-slate-200 space-y-4 animate-pulse-fast">
-                        <div class="flex justify-between items-center">
-                            <div class="h-4 bg-slate-200 rounded w-1/4"></div>
-                            <div class="h-4 bg-slate-200 rounded w-1/6"></div>
-                        </div>
-                        <div class="h-6 bg-slate-200 rounded w-2/3"></div>
-                        <div class="h-3 bg-slate-200 rounded w-1/3"></div>
-                    </div>
-                </div>
-
-                <!-- Job List Container -->
-                <div id="job-list" class="space-y-4 hidden">
+                <!-- Job Cards Feed Container -->
+                <div id="job-feed-container" class="space-y-3.5">
                     <!-- Dynamic Job Cards injected here -->
                 </div>
 
                 <!-- Empty State -->
-                <div id="no-results" class="hidden bg-white rounded-xl p-12 text-center border border-slate-200 shadow-sm">
-                    <i data-lucide="search-x" class="w-12 h-12 text-slate-300 mx-auto mb-3"></i>
-                    <h3 class="text-base font-bold text-slate-800">No vacancies matched your criteria</h3>
-                    <p class="text-xs text-slate-500 mt-1">Try broadening your search query or clearing active filters.</p>
+                <div id="empty-state" class="hidden bg-white rounded-2xl p-12 text-center border border-slate-200/80 shadow-sm space-y-3">
+                    <i data-lucide="search-x" class="w-12 h-12 text-slate-300 mx-auto"></i>
+                    <h4 class="font-bold text-slate-800 text-base">No matching vacancies found</h4>
+                    <p class="text-xs text-slate-500 max-w-md mx-auto">Try selecting a different province, clearing your filters, or searching with broader keywords.</p>
                 </div>
 
-                <!-- Pagination Controls -->
-                <div id="pagination" class="hidden bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between text-xs">
-                    <button id="prev-page" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 font-semibold rounded-lg text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition flex items-center gap-1">
+                <!-- Pagination -->
+                <div id="pagination-controls" class="hidden pt-4 flex items-center justify-between text-xs text-slate-600">
+                    <button id="prev-page-btn" class="px-4 py-2 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition flex items-center gap-1">
                         <i data-lucide="chevron-left" class="w-4 h-4"></i> Previous
                     </button>
-                    <span id="page-indicator" class="text-slate-600 font-medium">Page 1 of 1</span>
-                    <button id="next-page" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 font-semibold rounded-lg text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition flex items-center gap-1">
+                    <span id="pagination-info" class="font-medium">Page 1 of 1</span>
+                    <button id="next-page-btn" class="px-4 py-2 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition flex items-center gap-1">
                         Next <i data-lucide="chevron-right" class="w-4 h-4"></i>
                     </button>
                 </div>
             </section>
         </div>
+
+        <!-- Footer Notice -->
+        <footer class="pt-8 border-t border-slate-200/60 text-center text-xs text-slate-400 flex items-center justify-center gap-2">
+            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
+            <span>Check the original vacancy notice before applying.</span>
+        </footer>
     </main>
 
-    <!-- Modal Detail View -->
+    <!-- Modal View -->
     <div id="modal-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center p-4 hidden">
-        <div class="bg-white rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden border border-slate-200">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden border border-slate-200">
             <!-- Modal Header -->
-            <div class="p-6 border-b border-slate-200 bg-slate-50 flex justify-between items-start gap-4">
+            <div class="p-6 border-b border-slate-100 bg-slate-50/50 flex justify-between items-start gap-4">
                 <div>
-                    <span id="modal-dept" class="text-xs font-semibold text-emerald-700 uppercase tracking-wider block mb-1">
-                        Department Name
-                    </span>
-                    <h2 class="text-xl font-bold text-slate-900 leading-snug" id="modal-title">Job Title</h2>
+                    <span id="modal-dept-badge" class="px-2.5 py-1 bg-emerald-100/80 text-[#083a2d] font-semibold text-[11px] rounded-full inline-block mb-2">Public Service</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-slate-900 leading-snug" id="modal-title">Job Title</h3>
                     <p class="text-xs text-slate-500 mt-1">Ref: <span id="modal-ref" class="font-mono text-slate-700"></span></p>
                 </div>
-                <div class="flex items-center gap-2">
-                    <button id="modal-bookmark-btn" class="p-2 text-slate-400 hover:text-amber-500 rounded-lg hover:bg-slate-200 transition" title="Save Job">
-                        <i data-lucide="bookmark" class="w-5 h-5"></i>
-                    </button>
-                    <button id="modal-close" class="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-200 transition">
-                        <i data-lucide="x" class="w-5 h-5"></i>
-                    </button>
-                </div>
+                <button id="modal-close-btn" class="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
             </div>
 
             <!-- Modal Content Body -->
-            <div class="p-6 overflow-y-auto custom-scrollbar space-y-6 text-sm text-slate-700">
-                <!-- Meta Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-emerald-50/50 p-4 rounded-lg border border-emerald-100">
-                    <div class="flex items-center gap-3">
-                        <i data-lucide="banknote" class="w-5 h-5 text-emerald-600 flex-shrink-0"></i>
-                        <div>
-                            <span class="block text-xs text-slate-500 font-medium">Salary / Remuneration</span>
-                            <span id="modal-salary" class="font-semibold text-slate-800"></span>
-                        </div>
+            <div class="p-6 overflow-y-auto custom-scrollbar space-y-6 text-xs sm:text-sm text-slate-700">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200/60">
+                    <div class="space-y-0.5">
+                        <span class="text-[11px] text-slate-400 block font-medium">Salary</span>
+                        <span id="modal-salary" class="font-semibold text-slate-800 block"></span>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <i data-lucide="map-pin" class="w-5 h-5 text-emerald-600 flex-shrink-0"></i>
-                        <div>
-                            <span class="block text-xs text-slate-500 font-medium">Centre / Location</span>
-                            <span id="modal-centre" class="font-semibold text-slate-800"></span>
-                        </div>
+                    <div class="space-y-0.5">
+                        <span class="text-[11px] text-slate-400 block font-medium">Location</span>
+                        <span id="modal-centre" class="font-semibold text-slate-800 block"></span>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <i data-lucide="calendar" class="w-5 h-5 text-emerald-600 flex-shrink-0"></i>
-                        <div>
-                            <span class="block text-xs text-slate-500 font-medium">Closing Date</span>
-                            <span id="modal-closing" class="font-semibold text-slate-800"></span>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <i data-lucide="phone" class="w-5 h-5 text-emerald-600 flex-shrink-0"></i>
-                        <div>
-                            <span class="block text-xs text-slate-500 font-medium">Enquiries</span>
-                            <span id="modal-enquiries" class="font-semibold text-slate-800"></span>
-                        </div>
+                    <div class="space-y-0.5">
+                        <span class="text-[11px] text-slate-400 block font-medium">Closing Date</span>
+                        <span id="modal-closing" class="font-semibold text-slate-800 block"></span>
                     </div>
                 </div>
 
-                <!-- Sections -->
                 <div>
-                    <h3 class="font-bold text-slate-900 border-b pb-1 mb-2 flex items-center gap-2">
-                        <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-600"></i> Requirements
-                    </h3>
-                    <p id="modal-requirements" class="whitespace-pre-line leading-relaxed text-slate-600 text-xs sm:text-sm"></p>
+                    <h4 class="font-bold text-slate-900 text-sm mb-2 flex items-center gap-2">
+                        <i data-lucide="graduation-cap" class="w-4 h-4 text-[#0d5c46]"></i> Requirements
+                    </h4>
+                    <p id="modal-requirements" class="whitespace-pre-line text-slate-600 leading-relaxed"></p>
                 </div>
 
                 <div>
-                    <h3 class="font-bold text-slate-900 border-b pb-1 mb-2 flex items-center gap-2">
-                        <i data-lucide="briefcase" class="w-4 h-4 text-emerald-600"></i> Key Duties & Responsibilities
-                    </h3>
-                    <p id="modal-duties" class="whitespace-pre-line leading-relaxed text-slate-600 text-xs sm:text-sm"></p>
+                    <h4 class="font-bold text-slate-900 text-sm mb-2 flex items-center gap-2">
+                        <i data-lucide="briefcase" class="w-4 h-4 text-[#0d5c46]"></i> Key Duties
+                    </h4>
+                    <p id="modal-duties" class="whitespace-pre-line text-slate-600 leading-relaxed"></p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-900 text-sm mb-2 flex items-center gap-2">
+                        <i data-lucide="phone" class="w-4 h-4 text-[#0d5c46]"></i> Enquiries
+                    </h4>
+                    <p id="modal-enquiries" class="text-slate-600"></p>
                 </div>
             </div>
 
-            <!-- Modal Footer -->
-            <div class="p-4 border-t border-slate-200 bg-slate-50 flex justify-between items-center gap-3">
-                <button id="copy-details-btn" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-semibold transition flex items-center gap-2">
-                    <i data-lucide="copy" class="w-4 h-4"></i> Copy Application Details
-                </button>
-                <button id="modal-close-btn" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg text-xs font-semibold transition">
-                    Close
+            <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end">
+                <button id="modal-done-btn" class="px-5 py-2 bg-[#083a2d] hover:bg-[#0d5c46] text-white rounded-xl text-xs font-semibold transition">
+                    Done
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Application Engine JavaScript -->
+    <!-- Application JavaScript Code -->
     <script>
-        // Global State
-        let rawJobsData = [];
-        let filteredJobsData = [];
-        let bookmarks = JSON.parse(localStorage.getItem('psv_bookmarks') || '[]');
-        let showingBookmarksOnly = false;
+        let allJobs = [];
+        let filteredJobs = [];
+        let selectedProvince = "ALL";
+        let savedJobIds = JSON.parse(localStorage.getItem('psv_saved_jobs') || '[]');
+        let currentTab = "browse"; // 'browse', 'closing_soon', 'saved'
         
         let currentPage = 1;
-        const itemsPerPage = 12;
-        let currentActiveJob = null;
+        const pageSize = 10;
 
-        // UI Element References
+        // DOM Elements
         const elements = {
-            jobList: document.getElementById('job-list'),
-            skeletonContainer: document.getElementById('skeleton-container'),
-            noResults: document.getElementById('no-results'),
-            totalCount: document.getElementById('total-count'),
-            showingRange: document.getElementById('showing-range'),
-            searchInput: document.getElementById('search-input'),
-            deptFilter: document.getElementById('dept-filter'),
-            locationFilter: document.getElementById('location-filter'),
-            levelFilter: document.getElementById('level-filter'),
-            sortSelect: document.getElementById('sort-select'),
-            activeTags: document.getElementById('active-tags'),
-            pagination: document.getElementById('pagination'),
-            prevPageBtn: document.getElementById('prev-page'),
-            nextPageBtn: document.getElementById('next-page'),
-            pageIndicator: document.getElementById('page-indicator'),
-            modalOverlay: document.getElementById('modal-overlay'),
-            bookmarkBadge: document.getElementById('bookmark-badge'),
-            viewBookmarksBtn: document.getElementById('view-bookmarks-btn'),
-            savedViewBanner: document.getElementById('saved-view-banner'),
-            sidebarDrawer: document.getElementById('sidebar-drawer'),
-            mobileFilterToggle: document.getElementById('mobile-filter-toggle'),
-            mobileFilterClose: document.getElementById('mobile-filter-close')
+            feed: document.getElementById('job-feed-container'),
+            resultsCount: document.getElementById('results-count'),
+            emptyState: document.getElementById('empty-state'),
+            deptSelect: document.getElementById('department-select'),
+            salarySelect: document.getElementById('salary-grade-select'),
+            closingSelect: document.getElementById('closing-date-select'),
+            sortSelect: document.getElementById('sort-order-select'),
+            searchInput: document.getElementById('keyword-search'),
+            savedBadge: document.getElementById('saved-count-badge'),
+            paginationControls: document.getElementById('pagination-controls'),
+            prevBtn: document.getElementById('prev-page-btn'),
+            nextBtn: document.getElementById('next-page-btn'),
+            paginationInfo: document.getElementById('pagination-info'),
+            modalOverlay: document.getElementById('modal-overlay')
         };
 
-        // Initialize Application
         document.addEventListener('DOMContentLoaded', async () => {
             setupEventListeners();
-            updateBookmarkBadge();
-            await fetchJobsData();
+            updateSavedBadge();
+            await loadData();
+            lucide.createIcons();
         });
 
-        // Async Fetch JSON
-        async function fetchJobsData() {
+        // Load JSON
+        async function loadData() {
             try {
-                // Fetch external JSON dataset exported from Python script
-                const response = await fetch('psv_circular_38_complete.json');
-                if (!response.ok) throw new Error('Failed to load JSON');
-                rawJobsData = await response.json();
-            } catch (err) {
-                console.warn("External JSON file not found. Falling back to internal standard dataset.");
-                // Fallback demo dataset if JSON file is missing locally
-                rawJobsData = [
+                const res = await fetch('psv_circular_38_complete.json');
+                if(!res.ok) throw new Error('Could not fetch JSON file');
+                allJobs = await res.json();
+            } catch(e) {
+                console.warn('Loading fallback demo data.');
+                allJobs = [
                     {
                         "id": "POST-38-01",
                         "post_number": "POST 38/01",
-                        "title": "SCREENING OFFICER",
-                        "reference_number": "3/3/1/99/2026",
+                        "title": "SCREENING OFFICER REF NO: 3/3/1/99/2026",
                         "department": "Department of Agriculture",
                         "salary": "R338 106 per annum (Level 07)",
                         "centre": "Gauteng (Pretoria)",
                         "closing_date": "06 November 2026",
-                        "requirements": "Grade 12 certificate and Degree / National Diploma in Security Risk Management/Policing. Minimum 1 year experience.",
-                        "duties": "Render security screening of new employees. Take fingerprints of candidates. Conduct qualification and background verification.",
-                        "enquiries": "Mr M Mnguni Tel: (012) 319 7127"
+                        "requirements": "Grade 12 certificate and Degree / National Diploma in Security Risk Management.",
+                        "duties": "Render security screening of new employees. Conduct credit and criminal verification.",
+                        "enquiries": "Mr M Mnguni Tel No: (012) 319 7127"
                     },
                     {
                         "id": "POST-38-02",
                         "post_number": "POST 38/02",
-                        "title": "DIRECTOR: PUBLIC EXAMINATION",
-                        "reference_number": "DBE/74/2026",
-                        "department": "Department of Basic Education",
-                        "salary": "R1 317 384 per annum (Level 13)",
+                        "title": "BURSARY CLERK REF NO: EMC1/36/26",
+                        "department": "Department of Higher Education and Training",
+                        "salary": "R237 453 - R279 708 per annum (Level 05)",
+                        "centre": "High Street Campus",
+                        "closing_date": "06 November 2026",
+                        "requirements": "Grade 12 or equivalent qualification with basic computer literacy.",
+                        "duties": "Process bursary applications and keep records.",
+                        "enquiries": "Ms N Thompson Tel No: (041) 996 1800"
+                    },
+                    {
+                        "id": "POST-38-03",
+                        "post_number": "POST 38/03",
+                        "title": "SENIOR STATE ACCOUNTANT: INTERNAL CONTROL REF NO:",
+                        "department": "Department of Correctional Services",
+                        "salary": "R413 001 per annum (Level 08)",
                         "centre": "Pretoria",
                         "closing_date": "06 November 2026",
-                        "requirements": "NQF Level 7 qualification in Education. Minimum 5 years experience at SMS level.",
-                        "duties": "Manage, coordinate and support Directorate activities. Facilitate setting of high-quality NSC exam papers.",
-                        "enquiries": "Ms N Monyela Tel: (012) 357 3294"
+                        "requirements": "Degree/Diploma in Finance or Internal Audit.",
+                        "duties": "Ensure compliance with PFMA and internal accounting controls.",
+                        "enquiries": "Ms NS Khumalo Tel No: (012) 307 2174"
                     }
                 ];
             } finally {
-                elements.skeletonContainer.classList.add('hidden');
-                elements.jobList.classList.remove('hidden');
-                populateDropdownOptions();
-                readURLParameters();
-                applyFiltersAndRender();
+                populateDepartments();
+                applyFilters();
             }
         }
 
-        // Dropdown options populator
-        function populateDropdownOptions() {
-            const depts = [...new Set(rawJobsData.map(j => j.department).filter(Boolean))].sort();
-            const locations = [...new Set(rawJobsData.map(j => j.centre).filter(Boolean))].sort();
-
+        function populateDepartments() {
+            const depts = [...new Set(allJobs.map(j => j.department).filter(Boolean))].sort();
             depts.forEach(d => {
                 const opt = document.createElement('option');
                 opt.value = d;
                 opt.textContent = d;
-                elements.deptFilter.appendChild(opt);
-            });
-
-            locations.forEach(l => {
-                const opt = document.createElement('option');
-                opt.value = l;
-                opt.textContent = l;
-                elements.locationFilter.appendChild(opt);
+                elements.deptSelect.appendChild(opt);
             });
         }
 
-        // Filter & Sort Core Engine
-        function applyFiltersAndRender() {
-            const searchVal = elements.searchInput.value.toLowerCase().trim();
-            const deptVal = elements.deptFilter.value;
-            const locVal = elements.locationFilter.value;
-            const levelVal = elements.levelFilter.value;
-            const sortVal = elements.sortSelect.value;
+        // Apply All Filter Rules
+        function applyFilters() {
+            const keyword = elements.searchInput.value.toLowerCase().trim();
+            const dept = elements.deptSelect.value;
+            const grade = elements.salarySelect.value;
 
-            // Update URL Parameters
-            syncURLParams({ search: searchVal, dept: deptVal, location: locVal, level: levelVal });
+            filteredJobs = allJobs.filter(job => {
+                // Tab Filter
+                if (currentTab === 'saved' && !savedJobIds.includes(job.id)) return false;
 
-            // Filtering
-            filteredJobsData = rawJobsData.filter(job => {
-                if (showingBookmarksOnly && !bookmarks.includes(job.id)) return false;
-
-                const matchesSearch = !searchVal || 
-                    job.title.toLowerCase().includes(searchVal) ||
-                    job.reference_number.toLowerCase().includes(searchVal) ||
-                    (job.duties && job.duties.toLowerCase().includes(searchVal)) ||
-                    (job.requirements && job.requirements.toLowerCase().includes(searchVal));
-
-                const matchesDept = !deptVal || job.department === deptVal;
-                const matchesLoc = !locVal || job.centre === locVal;
-
-                let matchesLevel = true;
-                if (levelVal) {
-                    const salText = (job.salary || '').toLowerCase();
-                    if (levelVal === 'entry') matchesLevel = /level\s*0?[1-5]\b/.test(salText);
-                    else if (levelVal === 'supervisory') matchesLevel = /level\s*0?[6-8]\b/.test(salText);
-                    else if (levelVal === 'management') matchesLevel = /level\s*(0?9|10|11|12)\b/.test(salText);
-                    else if (levelVal === 'sms') matchesLevel = /level\s*(1[3-6])\b|sms|director/i.test(salText);
+                // Location / Province Pill Filter
+                if (selectedProvince !== 'ALL') {
+                    const locText = (job.centre + ' ' + job.title + ' ' + job.department).toLowerCase();
+                    if (!locText.includes(selectedProvince.toLowerCase())) return false;
                 }
 
-                return matchesSearch && matchesDept && matchesLoc && matchesLevel;
+                // Keyword Search
+                if (keyword) {
+                    const fullText = (job.title + ' ' + job.reference_number + ' ' + job.department + ' ' + job.duties).toLowerCase();
+                    if (!fullText.includes(keyword)) return false;
+                }
+
+                // Department
+                if (dept && job.department !== dept) return false;
+
+                // Salary Grade
+                if (grade) {
+                    const salText = (job.salary || '').toLowerCase();
+                    if (grade === 'entry' && !/level\s*0?[1-5]\b/.test(salText)) return false;
+                    if (grade === 'supervisory' && !/level\s*0?[6-8]\b/.test(salText)) return false;
+                    if (grade === 'management' && !/level\s*(0?9|10|11|12)\b/.test(salText)) return false;
+                    if (grade === 'sms' && !/level\s*(1[3-6])\b|sms|director/i.test(salText)) return false;
+                }
+
+                return true;
             });
 
             // Sorting
-            filteredJobsData.sort((a, b) => {
-                if (sortVal === 'title_asc') return a.title.localeCompare(b.title);
+            const sortVal = elements.sortSelect.value;
+            filteredJobs.sort((a, b) => {
+                if (sortVal === 'title_az') return a.title.localeCompare(b.title);
                 if (sortVal === 'salary_desc') {
                     const salA = parseInt((a.salary || '').replace(/\D/g, '')) || 0;
                     const salB = parseInt((b.salary || '').replace(/\D/g, '')) || 0;
@@ -469,272 +463,188 @@
             });
 
             currentPage = 1;
-            renderCards();
-            renderActiveChips();
+            renderFeed();
         }
 
-        // Render Cards with Pagination
-        function renderCards() {
-            elements.jobList.innerHTML = '';
-            const total = filteredJobsData.length;
-            elements.totalCount.textContent = total;
+        function renderFeed() {
+            elements.feed.innerHTML = '';
+            const total = filteredJobs.length;
+            elements.resultsCount.textContent = total;
 
             if (total === 0) {
-                elements.noResults.classList.remove('hidden');
-                elements.pagination.classList.add('hidden');
-                elements.showingRange.textContent = '0-0';
+                elements.emptyState.classList.remove('hidden');
+                elements.paginationControls.classList.add('hidden');
                 return;
             }
 
-            elements.noResults.classList.add('hidden');
-            elements.pagination.classList.remove('hidden');
+            elements.emptyState.classList.add('hidden');
+            elements.paginationControls.classList.remove('hidden');
 
-            const totalPages = Math.ceil(total / itemsPerPage);
-            const startIdx = (currentPage - 1) * itemsPerPage;
-            const endIdx = Math.min(startIdx + itemsPerPage, total);
+            const totalPages = Math.ceil(total / pageSize);
+            const startIdx = (currentPage - 1) * pageSize;
+            const pageJobs = filteredJobs.slice(startIdx, startIdx + pageSize);
 
-            elements.showingRange.textContent = `${startIdx + 1}-${endIdx}`;
-            elements.pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
-            elements.prevPageBtn.disabled = currentPage === 1;
-            elements.nextPageBtn.disabled = currentPage === totalPages;
+            elements.paginationInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+            elements.prevBtn.disabled = currentPage === 1;
+            elements.nextBtn.disabled = currentPage === totalPages;
 
-            const pageItems = filteredJobsData.slice(startIdx, endIdx);
-
-            pageItems.forEach(job => {
-                const isBookmarked = bookmarks.includes(job.id);
+            pageJobs.forEach(job => {
+                const isSaved = savedJobIds.includes(job.id);
                 const card = document.createElement('div');
-                card.className = "bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between group";
-                
+                card.className = "bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition space-y-3 group";
+
                 card.innerHTML = `
-                    <div>
-                        <div class="flex justify-between items-start gap-2 mb-2">
-                            <span class="text-[11px] font-semibold px-2.5 py-0.5 bg-emerald-50 text-emerald-800 rounded-md border border-emerald-200/60 truncate max-w-[200px]">
+                    <div class="flex items-start justify-between gap-3">
+                        <div>
+                            <span class="px-2.5 py-0.5 bg-emerald-100/80 text-[#083a2d] font-semibold text-[11px] rounded-full inline-block mb-1">
                                 ${job.department || 'Public Service'}
                             </span>
-                            <div class="flex items-center gap-1">
-                                <button onclick="toggleBookmark('${job.id}', event)" class="p-1 text-slate-300 hover:text-amber-500 transition" title="Save Job">
-                                    <i data-lucide="bookmark" class="w-4 h-4 ${isBookmarked ? 'fill-amber-400 text-amber-500' : ''}"></i>
-                                </button>
-                                <span class="text-[11px] font-mono text-slate-400">Ref: ${job.reference_number}</span>
-                            </div>
+                            <h4 onclick="showModal('${job.id}')" class="text-base font-bold text-slate-900 group-hover:text-[#0d5c46] cursor-pointer transition">
+                                ${job.title}
+                            </h4>
                         </div>
-                        <h3 onclick="openModal('${job.id}')" class="text-base font-bold text-slate-900 group-hover:text-emerald-700 cursor-pointer transition mb-2">
-                            ${job.title}
-                        </h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600 mb-4">
-                            <div class="flex items-center gap-1.5">
-                                <i data-lucide="banknote" class="w-3.5 h-3.5 text-slate-400"></i>
-                                <span class="truncate">${job.salary || 'Standard Remuneration'}</span>
-                            </div>
-                            <div class="flex items-center gap-1.5">
-                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
-                                <span class="truncate">${job.centre || 'South Africa'}</span>
-                            </div>
+                        <button onclick="toggleSaveJob('${job.id}', event)" class="text-slate-300 hover:text-amber-500 transition p-1" title="Save vacancy">
+                            <i data-lucide="bookmark" class="w-5 h-5 ${isSaved ? 'fill-amber-400 text-amber-500' : ''}"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-slate-600">
+                        <div class="flex items-center gap-1.5">
+                            <i data-lucide="coins" class="w-4 h-4 text-slate-400"></i>
+                            <span>${job.salary || 'Standard Salary'}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-slate-400"></i>
+                            <span>${job.centre || 'National'}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i>
+                            <span>Closes: <strong class="text-slate-800">${job.closing_date || 'N/A'}</strong></span>
                         </div>
                     </div>
-                    <div class="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
-                        <span class="text-slate-400">Closing: <strong class="text-slate-600">${job.closing_date || 'N/A'}</strong></span>
-                        <button onclick="openModal('${job.id}')" class="text-emerald-700 font-semibold flex items-center gap-1 hover:underline">
-                            View Post <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+
+                    <div class="pt-2 flex justify-end">
+                        <button onclick="showModal('${job.id}')" class="text-xs font-semibold text-[#0d5c46] hover:underline flex items-center gap-1">
+                            View details <i data-lucide="chevron-right" class="w-4 h-4"></i>
                         </button>
                     </div>
                 `;
-                elements.jobList.appendChild(card);
+                elements.feed.appendChild(card);
             });
 
             lucide.createIcons();
         }
 
-        // Active Chips Render
-        function renderActiveChips() {
-            elements.activeTags.innerHTML = '';
-            const filters = [
-                { key: 'search', label: elements.searchInput.value },
-                { key: 'dept', label: elements.deptFilter.value },
-                { key: 'location', label: elements.locationFilter.value },
-                { key: 'level', label: elements.levelFilter.value }
-            ];
-
-            let count = 0;
-            filters.forEach(f => {
-                if (f.label) {
-                    count++;
-                    const chip = document.createElement('span');
-                    chip.className = "inline-flex items-center gap-1 px-2.5 py-1 bg-slate-200 text-slate-700 rounded-full text-xs font-medium";
-                    chip.innerHTML = `${f.key}: ${f.label} <button onclick="clearSingleFilter('${f.key}')" class="hover:text-red-600"><i data-lucide="x" class="w-3 h-3"></i></button>`;
-                    elements.activeTags.appendChild(chip);
-                }
-            });
-
-            if (count > 0) elements.activeTags.classList.remove('hidden');
-            else elements.activeTags.classList.add('hidden');
-            lucide.createIcons();
-        }
-
-        function clearSingleFilter(key) {
-            if (key === 'search') elements.searchInput.value = '';
-            if (key === 'dept') elements.deptFilter.value = '';
-            if (key === 'location') elements.locationFilter.value = '';
-            if (key === 'level') elements.levelFilter.value = '';
-            applyFiltersAndRender();
-        }
-
-        // Modal Handler
-        function openModal(id) {
-            const job = rawJobsData.find(j => j.id === id);
+        // Modal View
+        function showModal(id) {
+            const job = allJobs.find(j => j.id === id);
             if (!job) return;
 
-            currentActiveJob = job;
-            document.getElementById('modal-dept').textContent = job.department || 'Public Service Department';
             document.getElementById('modal-title').textContent = job.title;
-            document.getElementById('modal-ref').textContent = job.reference_number;
+            document.getElementById('modal-ref').textContent = job.reference_number || 'N/A';
             document.getElementById('modal-salary').textContent = job.salary || 'N/A';
             document.getElementById('modal-centre').textContent = job.centre || 'N/A';
             document.getElementById('modal-closing').textContent = job.closing_date || 'N/A';
+            document.getElementById('modal-requirements').textContent = job.requirements || 'Refer to circular instructions.';
+            document.getElementById('modal-duties').textContent = job.duties || 'Refer to circular instructions.';
             document.getElementById('modal-enquiries').textContent = job.enquiries || 'N/A';
-            document.getElementById('modal-requirements').textContent = job.requirements || 'Refer to Circular instructions.';
-            document.getElementById('modal-duties').textContent = job.duties || 'Refer to official job description.';
 
-            updateModalBookmarkBtn();
             elements.modalOverlay.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             elements.modalOverlay.classList.add('hidden');
-            document.body.style.overflow = 'auto';
         }
 
-        // Bookmark Storage Operations
-        function toggleBookmark(id, event) {
+        // Saved Jobs Operations
+        function toggleSaveJob(id, event) {
             if (event) event.stopPropagation();
-            const idx = bookmarks.indexOf(id);
-            if (idx > -1) bookmarks.splice(idx, 1);
-            else bookmarks.push(id);
+            const idx = savedJobIds.indexOf(id);
+            if (idx > -1) savedJobIds.splice(idx, 1);
+            else savedJobIds.push(id);
 
-            localStorage.setItem('psv_bookmarks', JSON.stringify(bookmarks));
-            updateBookmarkBadge();
-            if (currentActiveJob && currentActiveJob.id === id) updateModalBookmarkBtn();
-            renderCards();
+            localStorage.setItem('psv_saved_jobs', JSON.stringify(savedJobIds));
+            updateSavedBadge();
+            renderFeed();
         }
 
-        function updateBookmarkBadge() {
-            elements.bookmarkBadge.textContent = bookmarks.length;
+        function updateSavedBadge() {
+            elements.savedBadge.textContent = savedJobIds.length;
         }
 
-        function updateModalBookmarkBtn() {
-            const btn = document.getElementById('modal-bookmark-btn');
-            const isBookmarked = bookmarks.includes(currentActiveJob.id);
-            btn.innerHTML = `<i data-lucide="bookmark" class="w-5 h-5 ${isBookmarked ? 'fill-amber-400 text-amber-500' : ''}"></i>`;
-            btn.onclick = () => toggleBookmark(currentActiveJob.id);
-            lucide.createIcons();
-        }
+        // Home Reset Functionality
+        function resetAppToHome() {
+            selectedProvince = "ALL";
+            currentTab = "browse";
+            elements.searchInput.value = "";
+            elements.deptSelect.value = "";
+            elements.salarySelect.value = "";
+            elements.closingSelect.value = "";
 
-        // Copy Application Summary
-        function copyApplicationDetails() {
-            if (!currentActiveJob) return;
-            const text = `POSITION: ${currentActiveJob.title}\nREF NO: ${currentActiveJob.reference_number}\nDEPARTMENT: ${currentActiveJob.department}\nCLOSING DATE: ${currentActiveJob.closing_date}\nENQUIRIES: ${currentActiveJob.enquiries}`;
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = document.getElementById('copy-details-btn');
-                btn.innerHTML = `<i data-lucide="check" class="w-4 h-4 text-emerald-300"></i> Copied to Clipboard!`;
-                lucide.createIcons();
-                setTimeout(() => {
-                    btn.innerHTML = `<i data-lucide="copy" class="w-4 h-4"></i> Copy Application Details`;
-                    lucide.createIcons();
-                }, 2000);
+            document.querySelectorAll('.province-pill').forEach(pill => {
+                pill.classList.remove('active');
+                if (pill.dataset.province === "ALL") pill.classList.add('active');
             });
+
+            applyFilters();
         }
 
-        // URL Parameters Sync
-        function syncURLParams(params) {
-            const url = new URL(window.location);
-            Object.keys(params).forEach(k => {
-                if (params[k]) url.searchParams.set(k, params[k]);
-                else url.searchParams.delete(k);
-            });
-            window.history.replaceState({}, '', url);
-        }
-
-        function readURLParameters() {
-            const url = new URL(window.location);
-            if (url.searchParams.has('search')) elements.searchInput.value = url.searchParams.get('search');
-            if (url.searchParams.has('dept')) elements.deptFilter.value = url.searchParams.get('dept');
-            if (url.searchParams.has('location')) elements.locationFilter.value = url.searchParams.get('location');
-            if (url.searchParams.has('level')) elements.levelFilter.value = url.searchParams.get('level');
-        }
-
-        // Export Data Utility
-        function exportDataset() {
-            const blob = new Blob([JSON.stringify(filteredJobsData, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'psv_filtered_vacancies.json';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        // Event Listener Bindings
+        // Event Listeners Setup
         function setupEventListeners() {
-            elements.searchInput.addEventListener('input', applyFiltersAndRender);
-            elements.deptFilter.addEventListener('change', applyFiltersAndRender);
-            elements.locationFilter.addEventListener('change', applyFiltersAndRender);
-            elements.levelFilter.addEventListener('change', applyFiltersAndRender);
-            elements.sortSelect.addEventListener('change', applyFiltersAndRender);
-
-            document.getElementById('reset-filters').addEventListener('click', () => {
-                elements.searchInput.value = '';
-                elements.deptFilter.value = '';
-                elements.locationFilter.value = '';
-                elements.levelFilter.value = '';
-                applyFiltersAndRender();
+            // Home / Logo Reset Button
+            document.getElementById('brand-home-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                resetAppToHome();
             });
 
-            elements.prevPageBtn.addEventListener('click', () => {
-                if (currentPage > 1) { currentPage--; renderCards(); }
+            // Province Pill Selectors
+            document.querySelectorAll('.province-pill').forEach(pill => {
+                pill.addEventListener('click', () => {
+                    document.querySelectorAll('.province-pill').forEach(p => p.classList.remove('active'));
+                    pill.classList.add('active');
+                    selectedProvince = pill.dataset.province;
+                    applyFilters();
+                });
             });
 
-            elements.nextPageBtn.addEventListener('click', () => {
-                const totalPages = Math.ceil(filteredJobsData.length / itemsPerPage);
-                if (currentPage < totalPages) { currentPage++; renderCards(); }
+            // Filter Inputs
+            elements.searchInput.addEventListener('input', applyFilters);
+            elements.deptSelect.addEventListener('change', applyFilters);
+            elements.salarySelect.addEventListener('change', applyFilters);
+            elements.closingSelect.addEventListener('change', applyFilters);
+            elements.sortSelect.addEventListener('change', applyFilters);
+
+            document.getElementById('clear-filters-btn').addEventListener('click', () => {
+                elements.deptSelect.value = '';
+                elements.salarySelect.value = '';
+                elements.closingSelect.value = '';
+                applyFilters();
             });
 
-            elements.viewBookmarksBtn.addEventListener('click', () => {
-                showingBookmarksOnly = !showingBookmarksOnly;
-                if (showingBookmarksOnly) elements.savedViewBanner.classList.remove('hidden');
-                else elements.savedViewBanner.classList.add('hidden');
-                applyFiltersAndRender();
+            document.getElementById('reset-all-filters-btn').addEventListener('click', resetAppToHome);
+
+            // Nav Tabs
+            document.getElementById('nav-browse-btn').addEventListener('click', () => {
+                currentTab = 'browse';
+                applyFilters();
+            });
+            document.getElementById('nav-saved-btn').addEventListener('click', () => {
+                currentTab = 'saved';
+                applyFilters();
             });
 
-            document.getElementById('clear-bookmark-view').addEventListener('click', () => {
-                showingBookmarksOnly = false;
-                elements.savedViewBanner.classList.add('hidden');
-                applyFiltersAndRender();
+            // Pagination
+            elements.prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) { currentPage--; renderFeed(); }
+            });
+            elements.nextBtn.addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredJobs.length / pageSize);
+                if (currentPage < totalPages) { currentPage++; renderFeed(); }
             });
 
-            // Mobile Drawer Controls
-            elements.mobileFilterToggle.addEventListener('click', () => {
-                elements.sidebarDrawer.classList.remove('-translate-x-full');
-            });
-            elements.mobileFilterClose.addEventListener('click', () => {
-                elements.sidebarDrawer.classList.add('-translate-x-full');
-            });
-
-            document.getElementById('modal-close').onclick = closeModal;
             document.getElementById('modal-close-btn').onclick = closeModal;
-            document.getElementById('copy-details-btn').onclick = copyApplicationDetails;
-            document.getElementById('export-json-btn').onclick = exportDataset;
+            document.getElementById('modal-done-btn').onclick = closeModal;
         }
     </script>
 </body>
 </html>
-```eof
-
-### Key Highlights Included in `index.html`:
-1. **Dynamic JSON Loading:** Uses `fetch('psv_circular_38_complete.json')` with automatic fallback to sample data if running strictly off a static local file without a web server.
-2. **Pagination:** Limits views to **12 jobs per page** with dynamic Next/Previous controls and item range counters (`1-12 of 150`).
-3. **Sorting:** Supports real-time client-side sorting by **Closing Date (Soonest)**, **Title (A-Z)**, and **Salary (High to Low)**.
-4. **Salary Level Filter:** Classifies posts dynamically into *Entry Level*, *Supervisory*, *Middle Management*, and *SMS Level*.
-5. **Local Bookmarking:** Persists saved jobs using `localStorage` and provides a top header banner to toggle bookmarked view.
-6. **URL State Synchronization:** Automatically updates browser query string parameters (`?search=...&dept=...`) so users can share deep links.
-7. **Copy Details Utility:** Copies key application reference details directly to clipboard inside the detail modal view.
